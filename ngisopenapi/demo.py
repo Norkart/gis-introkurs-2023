@@ -23,19 +23,24 @@ def main() -> int:
     api = get_api()
 
     dataset_id = '63cb2b40-1461-4a9a-90c1-446ef0ee42f4'
-    #dataset_id = '1eb5a249-c7c5-4328-9a7f-9c6d1ce6d526'
 
-    #print("Datasets")
-    #print(api.get_datasets())
+    print("Get datasets")
+    print(api.get_datasets())
+    
 
-    #print("Dataset")
-    #print(api.get_dataset_info(dataset_id))
+    '''
+    print("Get dataset")
+    print(api.get_dataset_info(dataset_id))
+    '''
 
-    print("features")
-    res = api.get_features(dataset_id, "584080.3856561417,6638847.17958132,584237.6979578076,6639009.613057086", "Bygning")
-    print(len(res["features"]))
-    save_json(res, "result2.geojson")
-
+    '''
+    print("Get features")
+    bbox = "584080.3856561417,6638847.17958132,584237.6979578076,6639009.613057086"
+    filename = "buildings.geojson"
+    res = api.get_features(dataset_id, bbox, "Bygning")
+    print(f'Got {len(res["features"])} features. Saving to {filename}')
+    save_json(res, filename)
+    '''
     return 0
 
 if __name__ == '__main__':
