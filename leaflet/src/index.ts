@@ -1,3 +1,3 @@
 import { setupMap } from "./map";
 
-setupMap("map", [63.44, 10.4], 13);
+setupMap("map", [59.878623000000005, 10.502007000000004], 19);
