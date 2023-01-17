@@ -24,14 +24,15 @@ def main() -> int:
 
     dataset_id = '63cb2b40-1461-4a9a-90c1-446ef0ee42f4'
 
+    '''
     print("Get datasets")
     print(api.get_datasets())
-    
-
     '''
+
+    
     print("Get dataset")
     print(api.get_dataset_info(dataset_id))
-    '''
+    
 
     '''
     print("Get features")
