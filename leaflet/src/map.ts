@@ -17,6 +17,7 @@ import { icon } from "./icon";
 import { webatlasTileLayer } from "leaflet-webatlastile";
 import { fetchGeoJson } from "./fetchGeoJson";
 import { Feature, FeatureCollection } from "geojson";
+import { fetchFromNgisOpenApi } from "./fetchFromNgisOpenApi";
 
 export const setupMap = (
   div: string,
@@ -27,7 +28,9 @@ export const setupMap = (
   addLayerControl(map);
   marker(center, { icon }).addTo(map);
 
-  fetchGeoJson().then((data: FeatureCollection) => addGeoJson(map, data));
+  fetchFromNgisOpenApi(map.getBounds().toBBoxString()).then(
+    (data: FeatureCollection) => addGeoJson(map, data)
+  );
 };
 
 const addGeoJson = (map: Map, featureCollection: FeatureCollection) => {
