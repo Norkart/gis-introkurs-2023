@@ -6,6 +6,7 @@ import {
   tileLayer,
   control,
   marker,
+  geoJSON,
 } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -14,6 +15,8 @@ import "tilelayer-kartverket";
 import { icon } from "./icon";
 
 import { webatlasTileLayer } from "leaflet-webatlastile";
+import { fetchGeoJson } from "./fetchGeoJson";
+import { Feature, FeatureCollection } from "geojson";
 
 export const setupMap = (
   div: string,
@@ -22,8 +25,18 @@ export const setupMap = (
 ) => {
   const map = leafletMap(div).setView(center, zoom);
   addLayerControl(map);
-
   marker(center, { icon }).addTo(map);
+
+  fetchGeoJson().then((data: FeatureCollection) => addGeoJson(map, data));
+};
+
+const addGeoJson = (map: Map, featureCollection: FeatureCollection) => {
+  const layer = geoJSON(featureCollection, {
+    pointToLayer: (f: Feature, latLng: LatLngExpression) =>
+      marker(latLng, { icon }),
+  }).addTo(map);
+
+  map.fitBounds(layer.getBounds());
 };
 
 const addLayerControl = (map: Map) => {
